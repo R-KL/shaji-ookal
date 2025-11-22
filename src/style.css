@@ -1,2 +1,86 @@
 @import 'tailwindcss';
-@plugin 'daisyui';
+ @plugin 'daisyui';
+@theme {
+      --font-display: 'Inter Variable', sans-serif,system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      --color-bg: #0f1226;
+      --color-card: #14183a;
+      --color-ink: #e8ecff;
+      --color-muted: #a6b0ff;
+      --color-accent: #7aa2ff;
+      --color-accent-2: #00d4ff;
+      --color-ookal-gray: #7aa2ff40;
+      --shadow-glow: 0 0 30px rgba(122,162,255,0.35), 0 0 60px rgba(0,212,255,0.25);
+    }
+    :root {
+
+      --card: #14183a;
+      --muted: #a6b0ff;
+      --accent: #7aa2ff;
+      --accent-2: #00d4ff;
+      --glow: 0 0 30px rgba(122,162,255,0.35), 0 0 60px rgba(0,212,255,0.25);
+    }
+    body {
+        @apply m-0 text-ink font-display bg-fixed;
+        background: radial-gradient(1200px 800px at 20% -10%, #1d224a 0%, #0f1226 60%), radial-gradient(1000px 600px at 110% 20%, #152048 0%, transparent 60%),#0f1226;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px;
+      background: linear-gradient(90deg, rgba(122,162,255,.15), rgba(0,212,255,.15));
+      font-weight: 600; color: var(--muted); letter-spacing: .2px;
+    }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin: 8px 0 0; line-height: 1.1; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 28px; }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid rgba(122,162,255,.25);
+      border-radius: 20px; padding: 20px; box-shadow: var(--glow);
+    }
+    .card h2 { margin: 0 0 10px; font-size: 1.25rem; }
+    .card p { margin: 8px 0; color: var(--ink); }
+    .list { margin: 0; padding-left: 18px; color: var(--ink); }
+    .list li { margin: 8px 0; }
+
+    .generator { margin-top: 36px; display: grid; gap: 16px; justify-items: center; text-align: center; }
+    .display {
+      min-height: 72px; max-width: 850px; padding: 18px 20px;
+      font-size: clamp(1rem, 2.3vw, 1.25rem); line-height: 1.4;
+      background: rgba(20, 24, 58, .6);
+      border: 1px solid rgba(122,162,255,.25);
+      border-radius: 16px; box-shadow: var(--glow);
+    }
+
+    .row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    button {
+      padding: 12px 16px; border-radius: 14px; border: 1px solid rgba(122,162,255,.35);
+      background: linear-gradient(180deg, rgba(122,162,255,.25), rgba(0,212,255,.2));
+      color: white; font-weight: 700; letter-spacing: .2px; cursor: pointer;
+      transition: transform .06s ease, filter .15s ease, box-shadow .15s ease;
+      box-shadow: var(--glow);
+    }
+    button:hover { filter: brightness(1.08); }
+    button:active { transform: translateY(1px) scale(0.99); }
+
+    footer { text-align: center; color: var(--muted); font-size: .9rem; padding: 28px 0 48px; }
+
+    .pill {
+      font-size: .8rem; background: rgba(122,162,255,.15); border: 1px solid rgba(122,162,255,.3);
+      padding: 6px 10px; border-radius: 999px; color: var(--muted);
+    }
+
+    .tiny { font-size: .8rem; color: var(--muted); }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; align-items: start; }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .spark { position: fixed; inset: 0; pointer-events: none; opacity: .45; }
+      .spark::before, .spark::after {
+        content: ""; position: absolute; inset: -50vh -50vw; background:
+          radial-gradient(800px 400px at 10% 20%, rgba(122,162,255,.08), transparent 60%),
+          radial-gradient(600px 300px at 90% 30%, rgba(0,212,255,.06), transparent 60%);
+        animation: float 18s linear infinite alternate;
+      }
+      .spark::after { animation-duration: 28s; }
+      @keyframes float { from { transform: translateY(-2%); } to { transform: translateY(2%); } }
+    }

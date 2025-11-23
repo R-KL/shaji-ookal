@@ -11,46 +11,46 @@
       --color-ookal-accent-3: #0f53f133;
       --shadow-ookal-glow: 0 0 30px rgba(122,162,255,0.35), 0 0 60px rgba(0,212,255,0.25);
     }
-    body {
-        @apply m-0 text-ookal-white font-display bg-fixed;
-        background: radial-gradient(1200px 800px at 20% -10%, #1d224a 0%, #0f1226 60%), radial-gradient(1000px 600px at 110% 20%, #152048 0%, transparent 60%),#0f1226;
+body {
+    @apply m-0 text-ookal-white font-display bg-fixed;
+    background: radial-gradient(1200px 800px at 20% -10%, #1d224a 0%, #0f1226 60%), radial-gradient(1000px 600px at 110% 20%, #152048 0%, transparent 60%),#0f1226;
+}
+.container {
+    @apply max-w-6xl my-0 mx-auto p-6 ;
+}
+.badge {
+    @apply inline-flex items-center gap-4 py-2 rounded-4xl font-semibold tracking-wider;
+    @apply bg-linear-to-r from-ookal-accent via-ookal-accent-2 to-ookal-accent-3;
+}
+.card {
+    @apply bg-linear-to-b from-ookal-card/5 to-ookal-card/1 border border-ookal-gray;
+    @apply p-6 rounded-2xl shadow-ookal-glow;
+    & h2 {
+      @apply text-xl m-0 font-bold;
     }
-    .container {
-        @apply max-w-6xl my-0 mx-auto p-6 ;
+    & p {
+      @apply text-ookal-white my-2;
     }
-    .badge {
-        @apply inline-flex items-center gap-4 py-2 rounded-4xl font-semibold tracking-wider;
-        @apply bg-linear-to-r from-ookal-accent via-ookal-accent-2 to-ookal-accent-3;
-    }
-    .card {
-      @apply bg-linear-to-b from-ookal-card/5 to-ookal-card/1 border border-ookal-gray;
-      @apply p-6 rounded-2xl shadow-ookal-glow;
-      & h2 {
-        @apply text-xl m-0 font-bold;
-      }
-      & p {
-        @apply text-ookal-white my-2;
-      }
-    }
-    .display {
-      @apply min-h-16 max-w-2xl flex py-4 px-5 text-2xl bg-[#14183a99] border border-ookal-gray rounded-2xl shadow-ookal-glow;
-    }
-    button {
-        @apply px-4 py-3 font-bold rounded-xl border-ookal-gray border shadow-ookal-glow cursor-pointer transition;
-        @apply bg-linear-to-b from-ookal-accent to-ookal-accent-2 brightness-70 ;
-        @apply hover:brightness-100;
-    }
-    .pill {
-      @apply inline-flex text-sm shrink-0 px-2 py-1 bg-ookal-gray/50 border border-ookal-gray/30 rounded-full;
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .spark { position: fixed; inset: 0; pointer-events: none; opacity: .45; }
-      .spark::before, .spark::after {
+}
+.display {
+    @apply min-h-16 max-w-2xl flex py-4 px-5 text-2xl bg-[#14183a99] border border-ookal-gray rounded-2xl shadow-ookal-glow;
+}
+button {
+    @apply px-4 py-3 font-bold rounded-xl border-ookal-gray border shadow-ookal-glow cursor-pointer transition;
+    @apply bg-linear-to-b from-ookal-accent to-ookal-accent-2 brightness-70 ;
+    @apply hover:brightness-100;
+}
+.pill {
+    @apply inline-flex text-sm shrink-0 px-2 py-1 bg-ookal-gray/50 border border-ookal-gray/30 rounded-full;
+}
+@media (prefers-reduced-motion: no-preference) {
+    .spark { position: fixed; inset: 0; pointer-events: none; opacity: .45; }
+    .spark::before, .spark::after {
         content: ""; position: absolute; inset: -50vh -50vw; background:
-          radial-gradient(800px 400px at 10% 20%, rgba(122,162,255,.08), transparent 60%),
-          radial-gradient(600px 300px at 90% 30%, rgba(0,212,255,.06), transparent 60%);
+        radial-gradient(800px 400px at 10% 20%, rgba(122,162,255,.08), transparent 60%),
+        radial-gradient(600px 300px at 90% 30%, rgba(0,212,255,.06), transparent 60%);
         animation: float 18s linear infinite alternate;
-      }
-      .spark::after { animation-duration: 28s; }
-      @keyframes float { from { transform: translateY(-2%); } to { transform: translateY(2%); } }
     }
+    .spark::after { animation-duration: 28s; }
+    @keyframes float { from { transform: translateY(-2%); } to { transform: translateY(2%); } }
+}

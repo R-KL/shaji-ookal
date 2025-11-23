@@ -44,6 +44,7 @@ Alpine.data('ookal', () => ({
         if (e.key.toLowerCase() === 'r' && (this.typed.length === 0 || this.typed.length > 10)) {
             this.roastAny();
             this.typed = '';
+            return;
         };
         const k = e.key.length === 1 ? e.key.toLowerCase() : '';
         if (k) {

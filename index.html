@@ -7,7 +7,7 @@
     <title>Neeraj Ookal — Samsung × Trivandrum Roast</title>
     <meta name="description"
         content="A lovingly savage roast site for Neeraj Ookal: Samsung super-fan, Trivandrum brand ambassador." />
-    <script type="module" src="/src/main.js"></script>
+    <script defer type="module" src="/src/main.js"></script>
     <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -15,16 +15,16 @@
     <div class="shadow" aria-hidden="true"></div>
     <div x-data="ookal()" x-init="init()" @keydown.window="typing" class="container">
         <header class="grid items-center justify-items-center text-center pt-14 px-4 pb-6">
-            <span class="badge h-full border-ookal-gray shadow-glow" title="Certified Roast Only: Samsung × Trivandrum">🔥 Roast Verified • Samsung ×
+            <span class="badge h-full text-ookal-muted border-ookal-gray shadow-ookal-glow" title="Certified Roast Only: Samsung × Trivandrum">🔥 Roast Verified • Samsung ×
                 Trivandrum</span>
-            <h1>Neeraj Ookal</h1>
-            <p class="text-muted py-4">The Samsung salesman <span class="pill">Trivandrum</span> never asked for.</p>
+            <h1 class="text-6xl font-black p-2">Neeraj Ookal</h1>
+            <p class="text-ookal-muted py-4">The Samsung salesman who <span class="pill">Trivandrum</span> never asked for.</p>
         </header>
 
-        <section class="cards">
-            <article class="card text-ink" aria-labelledby="samsungHead">
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6" aria-labelledby="roastHead">
+            <article class="card text-ookal-white" aria-labelledby="samsungHead">
                 <h2 id="samsungHead">Samsung Syndrome</h2>
-                <ul class="list list-disc" id="samsungList">
+                <ul class="list px-2 list-disc list-inside [&>li]:py-1" id="samsungList">
                     <li>Thinks “One UI” is a lifestyle, not software.</li>
                     <li>Buys Samsung faster than he answers texts.</li>
                     <li>Knows more model numbers than birthdays of his friends.</li>
@@ -32,9 +32,9 @@
                 </ul>
             </article>
 
-            <article class="card text-ink" aria-labelledby="tvmHead">
+            <article class="card text-ookal-white" aria-labelledby="tvmHead">
                 <h2 id="tvmHead">Trivandrum Attachment Issues</h2>
-                <ul class="list list-disc" id="tvmList">
+                <ul class="list px-2 list-disc list-inside [&>li]:py-1" id="tvmList">
                     <li>Thinks the world map is Trivandrum with extra steps.</li>
                     <li>Tour guide energy: same tea shop, every single time.</li>
                     <li>His Wi‑Fi password? Probably <code>Trivandrum@123</code>.</li>
@@ -43,32 +43,32 @@
             </article>
         </section>
 
-        <section class="generator">
+        <section class="m-4 gap-6 grid justify-items-center text-center">
             <div class="display" id="display" aria-live="polite" x-ref="display" x-text="displayText">Click a button and let the roast begin.</div>
-            <div class="row">
+            <div class="flex flex-wrap justify-center gap-4 mt-4">
                 <button id="btnRoast" @click="roastAny" type="button" aria-label="Generate roast">Generate Roast 🔁</button>
                 <button id="btnSamsung" @click="roastSamsung" type="button" aria-label="Samsung-only roast">Samsung Only 📱</button>
                 <button id="btnTvm" @click="roastTvm" type="button" aria-label="Trivandrum-only roast">Trivandrum Only 📍</button>
                 <button id="btnCopy" @click="copyRoast" type="button" aria-label="Copy roast">Copy ✂️</button>
             </div>
-            <p class="tiny" id="hint">Tip: Press <strong>R</strong> for a new roast.</p>
+            <p class="text-sm p-1 m-2 text-ookal-muted" id="hint">Tip: Press <strong>R</strong> for a new roast.</p>
         </section>
 
-        <section class="cards" style="margin-top: 28px;">
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 m-4!" style="margin-top: 28px;">
             <article class="card">
                 <h2>Stats (absolutely scientific)</h2>
-                <div class="grid-2">
-                    <p><span class="pill">Samsung Mentions</span><br><strong id="sCount" x-text="sCount">0</strong></p>
-                    <p><span class="pill">Trivandrum Mentions</span><br><strong id="tCount" x-text="tCount">0</strong></p>
+                <div class="flex flex-col gap-4 items-start">
+                    <p class="pill"><span class="text-ookal-muted px-3">Samsung Mentions</span><strong class="px-2" id="sCount" x-text="sCount">0</strong></p>
+                    <p class="pill"><span class="text-ookal-muted px-3">Trivandrum Mentions</span><strong class="px-2" id="tCount" x-text="tCount">0</strong></p>
                 </div>
             </article>
             <article class="card">
                 <h2>Easter Egg</h2>
-                <p class="tiny">Type <kbd>samsung</kbd> or <kbd>trivandrum</kbd> on your keyboard 👀</p>
+                <p class="text-sm">Type <kbd>samsung</kbd> or <kbd>trivandrum</kbd> on your keyboard 👀</p>
             </article>
         </section>
 
-        <footer>
+        <footer class="text-ookal-muted text-center py-8 pb-4">
             Made by friends who care. Just not enough to stop roasting. 💙
         </footer>
     </div>

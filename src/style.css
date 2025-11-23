@@ -2,77 +2,47 @@
  @plugin 'daisyui';
 @theme {
       --font-display: 'Inter Variable', sans-serif,system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      --color-bg: #0f1226;
-      --color-card: #14183a;
-      --color-ink: #e8ecff;
-      --color-muted: #a6b0ff;
-      --color-accent: #7aa2ff;
-      --color-accent-2: #00d4ff;
+      --color-ookal-card: #14183a;
+      --color-ookal-white: #ffffff;
+      --color-ookal-muted: #a6b0ff;
+      --color-ookal-accent: #1e61ff26;
+      --color-ookal-accent-2: #00d4ff26;
       --color-ookal-gray: #7aa2ff40;
-      --shadow-glow: 0 0 30px rgba(122,162,255,0.35), 0 0 60px rgba(0,212,255,0.25);
-    }
-    :root {
-
-      --card: #14183a;
-      --muted: #a6b0ff;
-      --accent: #7aa2ff;
-      --accent-2: #00d4ff;
-      --glow: 0 0 30px rgba(122,162,255,0.35), 0 0 60px rgba(0,212,255,0.25);
+      --color-ookal-accent-3: #0f53f133;
+      --shadow-ookal-glow: 0 0 30px rgba(122,162,255,0.35), 0 0 60px rgba(0,212,255,0.25);
     }
     body {
-        @apply m-0 text-ink font-display bg-fixed;
+        @apply m-0 text-ookal-white font-display bg-fixed;
         background: radial-gradient(1200px 800px at 20% -10%, #1d224a 0%, #0f1226 60%), radial-gradient(1000px 600px at 110% 20%, #152048 0%, transparent 60%),#0f1226;
     }
-    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
-
+    .container {
+        @apply max-w-6xl my-0 mx-auto p-6 ;
+    }
     .badge {
-      display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px;
-      background: linear-gradient(90deg, rgba(122,162,255,.15), rgba(0,212,255,.15));
-      font-weight: 600; color: var(--muted); letter-spacing: .2px;
+        @apply inline-flex items-center gap-4 py-2 rounded-4xl font-semibold tracking-wider;
+        @apply bg-linear-to-r from-ookal-accent via-ookal-accent-2 to-ookal-accent-3;
     }
-
-    h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin: 8px 0 0; line-height: 1.1; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 28px; }
     .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      border: 1px solid rgba(122,162,255,.25);
-      border-radius: 20px; padding: 20px; box-shadow: var(--glow);
+      @apply bg-linear-to-b from-ookal-card/5 to-ookal-card/1 border border-ookal-gray;
+      @apply p-6 rounded-2xl shadow-ookal-glow;
+      & h2 {
+        @apply text-xl m-0 font-bold;
+      }
+      & p {
+        @apply text-ookal-white my-2;
+      }
     }
-    .card h2 { margin: 0 0 10px; font-size: 1.25rem; }
-    .card p { margin: 8px 0; color: var(--ink); }
-    .list { margin: 0; padding-left: 18px; color: var(--ink); }
-    .list li { margin: 8px 0; }
-
-    .generator { margin-top: 36px; display: grid; gap: 16px; justify-items: center; text-align: center; }
     .display {
-      min-height: 72px; max-width: 850px; padding: 18px 20px;
-      font-size: clamp(1rem, 2.3vw, 1.25rem); line-height: 1.4;
-      background: rgba(20, 24, 58, .6);
-      border: 1px solid rgba(122,162,255,.25);
-      border-radius: 16px; box-shadow: var(--glow);
+      @apply min-h-16 max-w-2xl flex py-4 px-5 text-2xl bg-[#14183a99] border border-ookal-gray rounded-2xl shadow-ookal-glow;
     }
-
-    .row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
     button {
-      padding: 12px 16px; border-radius: 14px; border: 1px solid rgba(122,162,255,.35);
-      background: linear-gradient(180deg, rgba(122,162,255,.25), rgba(0,212,255,.2));
-      color: white; font-weight: 700; letter-spacing: .2px; cursor: pointer;
-      transition: transform .06s ease, filter .15s ease, box-shadow .15s ease;
-      box-shadow: var(--glow);
+        @apply px-4 py-3 font-bold rounded-xl border-ookal-gray border shadow-ookal-glow cursor-pointer transition;
+        @apply bg-linear-to-b from-ookal-accent to-ookal-accent-2 brightness-70 ;
+        @apply hover:brightness-100;
     }
-    button:hover { filter: brightness(1.08); }
-    button:active { transform: translateY(1px) scale(0.99); }
-
-    footer { text-align: center; color: var(--muted); font-size: .9rem; padding: 28px 0 48px; }
-
     .pill {
-      font-size: .8rem; background: rgba(122,162,255,.15); border: 1px solid rgba(122,162,255,.3);
-      padding: 6px 10px; border-radius: 999px; color: var(--muted);
+      @apply inline-flex text-sm shrink-0 px-2 py-1 bg-ookal-gray/50 border border-ookal-gray/30 rounded-full;
     }
-
-    .tiny { font-size: .8rem; color: var(--muted); }
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; align-items: start; }
-
     @media (prefers-reduced-motion: no-preference) {
       .spark { position: fixed; inset: 0; pointer-events: none; opacity: .45; }
       .spark::before, .spark::after {

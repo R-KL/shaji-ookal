@@ -13,64 +13,88 @@
 
 <body>
     <div class="shadow" aria-hidden="true"></div>
-    <div x-data="ookal()" x-init="init()" @keydown.window="typing" class="container">
-        <header class="grid items-center justify-items-center text-center pt-14 px-4 pb-6">
-            <span class="badge h-full text-ookal-muted border-ookal-gray shadow-ookal-glow" title="Certified Roast Only: Samsung × Trivandrum">🔥 Roast Verified • Samsung ×
-                Trivandrum</span>
-            <h1 class="text-6xl font-black p-2">Neeraj Ookal</h1>
-            <p class="text-ookal-muted py-4">The Samsung salesman who <span class="pill">Trivandrum</span> never asked for.</p>
-        </header>
-
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-6" aria-labelledby="roastHead">
-            <article class="card text-ookal-white" aria-labelledby="samsungHead">
-                <h2 id="samsungHead">Samsung Syndrome</h2>
-                <ul class="list px-2 list-disc list-inside [&>li]:py-1" id="samsungList">
-                    <li>Thinks “One UI” is a lifestyle, not software.</li>
-                    <li>Buys Samsung faster than he answers texts.</li>
-                    <li>Knows more model numbers than birthdays of his friends.</li>
-                    <li>If Samsung made slippers, he’d flex them on Instagram.</li>
-                </ul>
-            </article>
-
-            <article class="card text-ookal-white" aria-labelledby="tvmHead">
-                <h2 id="tvmHead">Trivandrum Attachment Issues</h2>
-                <ul class="list px-2 list-disc list-inside [&>li]:py-1" id="tvmList">
-                    <li>Thinks the world map is Trivandrum with extra steps.</li>
-                    <li>Tour guide energy: same tea shop, every single time.</li>
-                    <li>His Wi‑Fi password? Probably <code>Trivandrum@123</code>.</li>
-                    <li>Believes the capital of “Neeraj” is Trivandrum.</li>
-                </ul>
-            </article>
-        </section>
-
-        <section class="m-4 gap-6 grid justify-items-center text-center">
-            <div class="display" id="display" aria-live="polite" x-ref="display" x-text="displayText">Click a button and let the roast begin.</div>
-            <div class="flex flex-wrap justify-center gap-4 mt-4">
-                <button id="btnRoast" @click="roastAny" type="button" aria-label="Generate roast">Generate Roast 🔁</button>
-                <button id="btnSamsung" @click="roastSamsung" type="button" aria-label="Samsung-only roast">Samsung Only 📱</button>
-                <button id="btnTvm" @click="roastTvm" type="button" aria-label="Trivandrum-only roast">Trivandrum Only 📍</button>
-                <button id="btnCopy" @click="copyRoast" type="button" aria-label="Copy roast">Copy ✂️</button>
+    <div x-data="ookal" x-init="init()" @keydown.window="typing" class="container">
+        <div id="body-content-wrapper" x-data="anime">
+            <div x-init="appear($el,'top')">
+                <header class="grid items-center justify-items-center text-center pt-14 px-4 pb-6">
+                    <span class="badge h-full text-ookal-muted border-ookal-gray shadow-ookal-glow"
+                        title="Certified Roast Only: Samsung × Trivandrum">🔥 Roast Verified • Samsung ×
+                        Trivandrum</span>
+                    <h1 class="text-6xl font-black p-2">Neeraj Ookal</h1>
+                    <p class="text-ookal-muted py-4">The Samsung salesman who <span class="pill">Trivandrum</span> never
+                        asked for.</p>
+                </header>
             </div>
-            <p class="text-sm p-1 m-2 text-ookal-muted" id="hint">Tip: Press <strong>R</strong> for a new roast.</p>
-        </section>
 
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 m-4!" style="margin-top: 28px;">
-            <article class="card">
-                <h2>Stats (absolutely scientific)</h2>
-                <div class="flex flex-col gap-4 items-start">
-                    <p class="pill"><span class="text-ookal-muted px-3">Samsung Mentions</span><strong class="px-2" id="sCount" x-text="sCount">0</strong></p>
-                    <p class="pill"><span class="text-ookal-muted px-3">Trivandrum Mentions</span><strong class="px-2" id="tCount" x-text="tCount">0</strong></p>
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-6" aria-labelledby="roastHead">
+                <div x-init="appear($el,'left')">
+                    <article class="card text-ookal-white" aria-labelledby="samsungHead">
+                        <h2 id="samsungHead">Samsung Syndrome</h2>
+                        <ul class="list px-2 list-disc list-inside [&>li]:py-1" id="samsungList">
+                            <li>Thinks “One UI” is a lifestyle, not software.</li>
+                            <li>Buys Samsung faster than he answers texts.</li>
+                            <li>Knows more model numbers than birthdays of his friends.</li>
+                            <li>If Samsung made slippers, he’d flex them on Instagram.</li>
+                        </ul>
+                    </article>
                 </div>
-            </article>
-            <article class="card">
-                <h2>Easter Egg</h2>
-                <p class="text-sm">Type <kbd>samsung</kbd> or <kbd>trivandrum</kbd> on your keyboard 👀</p>
-            </article>
-        </section>
+                <div x-init="appear($el,'right')">
+                    <article class="card text-ookal-white" aria-labelledby="tvmHead">
+                        <h2 id="tvmHead">Trivandrum Attachment Issues</h2>
+                        <ul class="list px-2 list-disc list-inside [&>li]:py-1" id="tvmList">
+                            <li>Thinks the world map is Trivandrum with extra steps.</li>
+                            <li>Tour guide energy: same tea shop, every single time.</li>
+                            <li>His Wi‑Fi password? Probably <code>Trivandrum@123</code>.</li>
+                            <li>Believes the capital of “Neeraj” is Trivandrum.</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+            <div x-init="appear($el,'bottom')">
+                <section class="m-6 gap-6 grid justify-items-center text-center">
+                    <div id="display-wrapper" class="h-full/40">
+                        <div class="display" id="display" aria-live="polite" x-ref="display" x-text="displayText">Click
+                            a button
+                            and
+                            let the roast begin.</div>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-4 mt-4">
+                        <button id="btnRoast" @click="roastAny($el)" type="button" aria-label="Generate roast">Generate Roast
+                            🔁</button>
+                        <button id="btnSamsung" @click="roastSamsung($el)" type="button"
+                            aria-label="Samsung-only roast">Samsung
+                            Only
+                            📱</button>
+                        <button id="btnTvm" @click="roastTvm($el)" type="button"
+                            aria-label="Trivandrum-only roast">Trivandrum
+                            Only
+                            📍</button>
+                        <button id="btnCopy" @click="copyRoast" type="button" aria-label="Copy roast">Copy ✂️</button>
+                    </div>
+                    <p class="text-sm p-1 m-2 text-ookal-muted" id="hint">Tip: Press <strong>R</strong> for a new roast.
+                    </p>
+                </section>
 
-        <footer class="text-ookal-muted text-center py-8 pb-4">
-            Made by friends who care. Just not enough to stop roasting. 💙
-        </footer>
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-6 m-4!" style="margin-top: 28px;">
+                    <article class="card">
+                        <h2>Stats (absolutely scientific)</h2>
+                        <div class="flex flex-col gap-4 items-start">
+                            <p class="pill"><span class="text-ookal-muted px-3">Samsung Mentions</span><strong
+                                    class="px-2" id="sCount" x-text="sCount">0</strong></p>
+                            <p class="pill"><span class="text-ookal-muted px-3">Trivandrum Mentions</span><strong
+                                    class="px-2" id="tCount" x-text="tCount">0</strong></p>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <h2>Easter Egg</h2>
+                        <p class="text-sm">Type <kbd>samsung</kbd> or <kbd>trivandrum</kbd> on your keyboard 👀</p>
+                    </article>
+                </section>
+            </div>
+            <footer class="text-ookal-muted text-center py-8 pb-4">
+                Made by friends who care. Just not enough to stop roasting. 💙
+            </footer>
+        </div>
     </div>
 </body>
 

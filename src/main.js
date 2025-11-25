@@ -73,7 +73,7 @@ Alpine.data('ookal', () => ({
     roastTvm(el) { this.tCount++; this.show(random(this.tvmRoasts)); this.pop(el); },
     async copyRoast() {
         try {
-            const copyText = 'Neeraj is Someone that can be defined as: ' + this.displayText;
+            const copyText = 'If I have to say anything about Neeraj, it would be...' + this.displayText;
             await navigator.clipboard.writeText(copyText);
             const old = this.displayText;
             this.show('Copied. Now go paste it in the group chat.');

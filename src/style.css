@@ -33,7 +33,7 @@ body {
     }
 }
 .display {
-    @apply min-h-16 max-w-2xl flex py-4 px-5 text-2xl bg-[#14183a99] border border-ookal-gray rounded-2xl shadow-ookal-glow;
+    @apply min-h-16 flex py-4 px-5 text-2xl bg-[#14183a99] border border-ookal-gray rounded-2xl shadow-ookal-glow;
 }
 button {
     @apply px-4 py-3 font-bold rounded-xl border-ookal-gray border shadow-ookal-glow cursor-pointer transition;

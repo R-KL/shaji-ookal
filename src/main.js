@@ -71,18 +71,20 @@ Alpine.data('ookal', () => ({
     },
     roastSamsung(el) { this.sCount++; this.show(random(this.samsungRoasts)); this.pop(el); },
     roastTvm(el) { this.tCount++; this.show(random(this.tvmRoasts)); this.pop(el); },
-    async copyRoast() {
+    async copyRoast(el) {
         try {
             const copyText = 'If I have to say anything about Neeraj, it would be...' + this.displayText;
             await navigator.clipboard.writeText(copyText);
             const old = this.displayText;
             this.show('Copied. Now go paste it in the group chat.');
+            this.pop(el)
             setTimeout(() => this.show(old), 1200);
         } catch (e) {
             alert('Copy not supported here. Select and copy manually!');
         }
     },
     typing(e) {
+        this.$el.focus();
         if (e.key.toLowerCase() === 'r' && (this.typed.length === 0 || this.typed.length > 10)) {
             this.roastAny();
             this.typed = '';
@@ -105,7 +107,6 @@ Alpine.data('ookal', () => ({
         if (!el) return;
         animate(el, {
             transform: ['scale(1)', 'scale(1.2)', 'scale(1)'],
-            filter: ['brightness(1)', 'brightness(1.3)', 'brightness(1)'],
             duration: 160,
             easing: 'inOutSine',
         });

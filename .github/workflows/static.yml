@@ -1,0 +1,63 @@
+# .github/workflows/beta-deploy.yml
+
+name: Deploy Beta Branch to Pages
+
+on:
+  # Triggers the workflow only when pushing to the 'beta' branch
+  push:
+    branches:
+      - beta 
+  # Allows manual triggering from the Actions tab
+  workflow_dispatch:
+
+# Sets necessary permissions for the deployment token
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Ensures only one deployment runs at a time for this environment
+concurrency:
+  group: "beta-pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      # Setup Node.js (assuming you need Node for npm and Vite)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Change this to your required Node version
+
+      - name: Install Dependencies
+        run: npm install
+
+      # Build step dynamically sets the VITE_BASE_PATH
+      - name: Build Site with Correct Base Path
+        run: npm run build
+        env:
+          # Sets VITE_BASE_PATH to /<repository-name>/ 
+          # This fixes the 404 asset loading errors on GitHub Pages project sites.
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/ 
+          
+      - name: Upload Beta Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist # Change 'dist' if your build output folder is different
+
+  deploy:
+    # Defines the deployment environment for tracking
+    environment:
+      name: staging # You can change this name (e.g., 'beta-deployment')
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

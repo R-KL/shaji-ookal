@@ -9,6 +9,15 @@ window.Alpine = Alpine
 
 const random = arr => arr[Math.floor(Math.random() * arr.length)];
 
+// Global store for AI mode toggle
+Alpine.store('G', {
+    isAiMode: false,
+    aiLoaded: false,
+    aiLoading: false,
+    askConfirmation: false,
+    seedText: '',
+});
+
 Alpine.data('anime', () => ({
     easeType: spring({ bounce: -0.5, duration: 368 }),
 
@@ -114,5 +123,119 @@ Alpine.data('ookal', () => ({
 
 }));
 
+// ============ VANILLA JS AI ROASTER (bypasses Alpine completely) ============
+window.AIRoaster = {
+    model: null,
+    char2idx: null,
+    idx2char: null,
+    temperature: 0.7,
+    length: 100,
+    loaded: false,
+    loading: false,
+    
+    setStatus(msg) {
+        const el = document.getElementById('ai-status');
+        if (el) el.textContent = msg;
+    },
+    
+    setDisplay(msg) {
+        const el = document.getElementById('display');
+        if (el) el.textContent = msg;
+    },
+    
+    async load() {
+        if (this.loaded || this.loading) return;
+        this.loading = true;
+        Alpine.store('G').aiLoading = true;
+        
+        try {
+            this.setStatus('Loading TensorFlow.js...');
+            
+            // Load TF.js from CDN exactly like the working inline script
+            if (!window.tf) {
+                await new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js';
+                    script.onload = resolve;
+                    script.onerror = () => reject(new Error('Failed to load TensorFlow'));
+                    document.head.appendChild(script);
+                });
+            }
+            
+            this.setStatus('Loading character mappings...');
+            const charsReq = await fetch('/roast_char_rnn/chars.json');
+            this.char2idx = await charsReq.json();
+            this.idx2char = {};
+            Object.keys(this.char2idx).forEach(k => this.idx2char[this.char2idx[k]] = k);
+            
+            this.setStatus('Loading AI model...');
+            this.model = await tf.loadLayersModel('/roast_char_rnn/manifest.json');
+            
+            // Warmup (exactly like inline script)
+            this.model.predict(tf.zeros([1, 1]));
+            
+            this.setStatus(' AI Ready! Lets Generate some roasts. Increase temperature for more creativity and chaos.');
+            this.loaded = true;
+            Alpine.store('G').aiLoaded = true;
+            
+            // Enable the button
+            const btn = document.getElementById('btnAiRoast');
+            if (btn) btn.disabled = false;
+            
+        } catch (err) {
+            console.error('AI Load Error:', err);
+            this.setStatus('❌ Error: ' + err.message);
+        } finally {
+            this.loading = false;
+            Alpine.store('G').aiLoading = false;
+        }
+    },
+    
+    async generate() {
+        if (!this.model) {
+            this.setDisplay('Still loading AI...');
+            return;
+        }
+        
+        const seedText = Alpine.store('G').seedText || 'Neeraj is ';
+        this.setDisplay(seedText);
+        
+        this.model.resetStates();
+        
+        let input = [];
+        for (let char of seedText) {
+            if (char in this.char2idx) input = [this.char2idx[char]];
+        }
+        
+        let generatedText = seedText;
+        let currentInput = input.length > 0 ? input : [this.char2idx[' ']];
+        
+        for (let i = 0; i < this.length; i++) {
+            const inputTensor = tf.tensor(currentInput, [1, 1]);
+            const preds = this.model.predict(inputTensor);
+            const logits = preds.squeeze();
+            
+            const nextIndex = tf.tidy(() => {
+                const scaled = logits.div(this.temperature);
+                return tf.multinomial(scaled, 1).dataSync()[0];
+            });
+            
+            const nextChar = this.idx2char[nextIndex] || '';
+            generatedText += nextChar;
+            currentInput = [nextIndex];
+            
+            this.setDisplay(generatedText);
+            
+            inputTensor.dispose();
+            preds.dispose();
+            logits.dispose();
+            
+            if (nextChar === '\n') break;
+            await new Promise(r => setTimeout(r, 10));
+        }
+    }
+};
+
+// Remove Alpine machineRoaster component - using vanilla JS instead
 Alpine.start()
 

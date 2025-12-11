@@ -1,5 +1,9 @@
 @import 'tailwindcss';
  @plugin 'daisyui';
+
+/* Hide x-cloak elements until Alpine initializes */
+[x-cloak] { display: none !important; }
+
 @theme {
       --font-display: 'Inter Variable', sans-serif,system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       --color-ookal-card: #14183a;

@@ -147,7 +147,13 @@ window.AIRoaster = {
         if (this.loaded || this.loading) return;
         this.loading = true;
         Alpine.store('G').aiLoading = true;
-        
+        try {
+            this.basePath = import.meta.env.VITE_BASE_PATH;
+        }
+        catch (e) {
+            this.basePath = '/shaji-ookal/';
+            console.warn('Could not determine base path, defaulting to /shaji-ookal/');
+        }
         try {
             this.setStatus('Loading TensorFlow.js...');
             
@@ -163,13 +169,13 @@ window.AIRoaster = {
             }
             
             this.setStatus('Loading character mappings...');
-            const charsReq = await fetch('/roast_char_rnn/chars.json');
+            const charsReq = await fetch(this.basePath + 'roast_char_rnn/chars.json');
             this.char2idx = await charsReq.json();
             this.idx2char = {};
             Object.keys(this.char2idx).forEach(k => this.idx2char[this.char2idx[k]] = k);
             
             this.setStatus('Loading AI model...');
-            this.model = await tf.loadLayersModel('/roast_char_rnn/manifest.json');
+            this.model = await tf.loadLayersModel(this.basePath + 'roast_char_rnn/manifest.json');
             
             // Warmup (exactly like inline script)
             this.model.predict(tf.zeros([1, 1]));
